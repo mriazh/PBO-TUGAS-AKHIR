@@ -76,7 +76,7 @@ class loginController(frameLogin):
         inputtedPassword=self.txtPassword.GetValue()
         con = sqlite3.connect("myDb.sqlite3")
         cur = con.cursor()
-        cur.execute("SELECT username from users WHERE username='%s' AND Password = '%s';" % (inputtedUsername, inputtedPassword))
+        cur.execute("SELECT username from users WHERE username='%s' AND password = '%s';" % (inputtedUsername, inputtedPassword))
         if not cur.fetchone():
             wx.MessageBox('Data login salah', 'Terjadi kesalahan')
         else:
