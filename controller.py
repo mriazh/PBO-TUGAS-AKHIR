@@ -60,6 +60,14 @@ class account(dataManager):
 		errMsg = self.executeQuery(self.query)
 		return errMsg
 
+if __name__ == '__main__':
+	acc = account()
+	accList = acc.getDaftarMahasiswa()
+	baris = 1
+	for acc_row in accList:
+		print(baris,'. ', acc_row)
+		baris += 1
+
 class App(wx.App):
     appFrame=None
 
@@ -80,7 +88,19 @@ class loginController(frameLogin):
         if not cur.fetchone():
             wx.MessageBox('Data login salah', 'Terjadi kesalahan')
         else:
-            wx.MessageBox('Anda berhasil login', 'sukses')
+            #wx.MessageBox('Anda berhasil login', 'sukses')
+        	self.appFrame=homeController(frameHomeAdmin(None))
+        	self.appFrame.Show()
+        	self.Destroy()
 
-    def eventPark(self,event):
-        event.Skip()
+class homeController(frameHomeAdmin):
+
+	def buttonUserList(self, event):
+		self.appFrame=dataUserController(frameDataUser(None))
+		self.appFrame.Show()
+		self.Destroy()
+
+class dataUserController(frameDataUser):
+
+	def buttonAddUser(self, event):
+		event.Skip()

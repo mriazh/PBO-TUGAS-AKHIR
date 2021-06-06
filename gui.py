@@ -9,6 +9,7 @@
 
 import wx
 import wx.xrc
+import wx.grid
 
 ###########################################################################
 ## Class frameLogin
@@ -227,10 +228,10 @@ class frameRegistration ( wx.Frame ):
 
 
 ###########################################################################
-## Class HomeAdmin
+## Class frameHomeAdmin
 ###########################################################################
 
-class HomeAdmin ( wx.Frame ):
+class frameHomeAdmin ( wx.Frame ):
 
 	def __init__( self, parent ):
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
@@ -275,6 +276,12 @@ class HomeAdmin ( wx.Frame ):
 
 		self.m_menubar1.Append( self.m_menu5, u"Setoran Sampah" )
 
+		self.m_menu6 = wx.Menu()
+		self.menuListUser = wx.Menu()
+		self.m_menu6.AppendSubMenu( self.menuListUser, u"Semua User" )
+
+		self.m_menubar1.Append( self.m_menu6, u"List User" )
+
 		self.SetMenuBar( self.m_menubar1 )
 
 		bSizer7 = wx.BoxSizer( wx.VERTICAL )
@@ -295,6 +302,9 @@ class HomeAdmin ( wx.Frame ):
 		fgSizer6.SetFlexibleDirection( wx.BOTH )
 		fgSizer6.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 
+		self.adad = wx.Button( self.m_panel4, wx.ID_ANY, u"placeholder userlist", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer6.Add( self.adad, 0, wx.ALL, 5 )
+
 
 		self.m_panel4.SetSizer( fgSizer6 )
 		self.m_panel4.Layout()
@@ -304,10 +314,119 @@ class HomeAdmin ( wx.Frame ):
 
 		self.SetSizer( bSizer7 )
 		self.Layout()
+		self.m_statusBar1 = self.CreateStatusBar( 1, wx.STB_SIZEGRIP, wx.ID_ANY )
 
 		self.Centre( wx.BOTH )
 
+		# Connect Events
+		self.adad.Bind( wx.EVT_BUTTON, self.buttonUserList )
+
 	def __del__( self ):
 		pass
+
+
+	# Virtual event handlers, overide them in your derived class
+	def buttonUserList( self, event ):
+		event.Skip()
+
+
+###########################################################################
+## Class panelDataUser
+###########################################################################
+
+class panelDataUser ( wx.Panel ):
+
+	def __init__( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL, name = wx.EmptyString ):
+		wx.Panel.__init__ ( self, parent, id = id, pos = pos, size = size, style = style, name = name )
+
+
+	def __del__( self ):
+		pass
+
+
+###########################################################################
+## Class frameDataUser
+###########################################################################
+
+class frameDataUser ( wx.Frame ):
+
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+
+		fgSizer5 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer5.SetFlexibleDirection( wx.BOTH )
+		fgSizer5.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+
+		fgSizer6 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer6.SetFlexibleDirection( wx.BOTH )
+		fgSizer6.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+
+		self.m_staticText13 = wx.StaticText( self, wx.ID_ANY, u"total user", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText13.Wrap( -1 )
+
+		fgSizer6.Add( self.m_staticText13, 0, wx.ALL, 5 )
+
+		self.txtTotalUser = wx.StaticText( self, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.txtTotalUser.Wrap( -1 )
+
+		fgSizer6.Add( self.txtTotalUser, 0, wx.ALL, 5 )
+
+
+		fgSizer5.Add( fgSizer6, 1, wx.EXPAND, 5 )
+
+		fgSizer7 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer7.SetFlexibleDirection( wx.BOTH )
+		fgSizer7.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+
+		self.tambahuser = wx.Button( self, wx.ID_ANY, u"Tambah User", wx.DefaultPosition, wx.DefaultSize, 0 )
+		fgSizer7.Add( self.tambahuser, 0, wx.ALL, 5 )
+
+
+		fgSizer5.Add( fgSizer7, 1, wx.EXPAND, 5 )
+
+		self.tableUser = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+
+		# Grid
+		self.tableUser.CreateGrid( 1, 1 )
+		self.tableUser.EnableEditing( True )
+		self.tableUser.EnableGridLines( True )
+		self.tableUser.EnableDragGridSize( False )
+		self.tableUser.SetMargins( 0, 0 )
+
+		# Columns
+		self.tableUser.EnableDragColMove( False )
+		self.tableUser.EnableDragColSize( True )
+		self.tableUser.SetColLabelSize( 30 )
+		self.tableUser.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
+
+		# Rows
+		self.tableUser.EnableDragRowSize( True )
+		self.tableUser.SetRowLabelSize( 80 )
+		self.tableUser.SetRowLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
+
+		# Label Appearance
+
+		# Cell Defaults
+		self.tableUser.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+		fgSizer5.Add( self.tableUser, 0, wx.ALL, 5 )
+
+
+		self.SetSizer( fgSizer5 )
+		self.Layout()
+
+		self.Centre( wx.BOTH )
+
+		# Connect Events
+		self.tambahuser.Bind( wx.EVT_BUTTON, self.buttonAddUser )
+
+	def __del__( self ):
+		pass
+
+
+	# Virtual event handlers, overide them in your derived class
+	def buttonAddUser( self, event ):
+		event.Skip()
 
 
