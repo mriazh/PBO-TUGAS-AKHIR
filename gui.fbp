@@ -18,7 +18,7 @@
         <property name="internationalize">0</property>
         <property name="name">PROJECT AKHIR</property>
         <property name="namespace"></property>
-        <property name="path">D:\Kuliah\Eksperimen\python\Pbo\Test\work</property>
+        <property name="path">D:\Kuliah\Eksperimen\python\Pbo\PBO-TUGAS-AKHIR</property>
         <property name="precompiled_header"></property>
         <property name="relative_path">1</property>
         <property name="skip_lua_events">1</property>
@@ -2759,7 +2759,7 @@
             <property name="minimum_size"></property>
             <property name="name">frameData</property>
             <property name="pos"></property>
-            <property name="size">790,330</property>
+            <property name="size">800,330</property>
             <property name="style">wxCAPTION|wxCLOSE_BOX|wxMINIMIZE_BOX</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="title">HSART - Data</property>

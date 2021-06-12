@@ -5,15 +5,6 @@ import connect
 import admin
 import users
 
-class modelUsersData(connect.dataManagement):
-    def show(self,orderby="users.rekening"):
-        self.orderby = orderby
-        result = []
-        query = "SELECT name,users.rekening,jenis,jumlah,harga,status FROM users"
-        self.cur = self.conn.cursor()
-        self.cur.execute(query)
-        result = self.cur.fetchall()
-        return result
 
 class modelAdminData(connect.dataManagement):
     def show(self,orderby="admin.id"):
@@ -64,6 +55,7 @@ class App(wx.App):
 		self.appFrame = start(None)
 		self.appFrame.Show()
 		return True
+
 
 class start(gui.frameBegin):
 	def __init__(self,parent):
@@ -127,6 +119,7 @@ class subHomeAdmin(gui.frameHomeAdmin):
 class subAdminAccount(gui.frameAdminAccount):
 	def __init__(self,parent):
 		gui.frameAdminAccount.__init__(self,parent)
+<<<<<<< Updated upstream
 		self.id=id
 		self.InitData()		
 
@@ -141,6 +134,21 @@ class subAdminAccount(gui.frameAdminAccount):
 			for col in range(self.adminAccountTable.GetNumberCols()):
 				val = dataListAdmin[row][col]
 				self.adminAccountTable.SetCellValue(row,col,str(val))	
+=======
+		self.id = id
+		self.InitData()
+
+	def InitData(self,orderby="users.rekening"):
+		listUser = admin.modelAdminAccount()
+		dataListUser = listUser.show(orderby)
+		self.dataUserAdmin.DeleteRows(0, self.dataUserAdmin.GetNumberRows())
+		self.dataUserAdmin.AppendRows(len(dataListUser))
+
+		for row in range(len(dataListUser)):
+			for col in range(self.dataUserAdmin.GetNumberCols()):
+				val = dataListUser[row][col]
+				self.dataUserAdmin.SetCellValue(row,col,str(val))
+>>>>>>> Stashed changes
 
 	def eventHome(self,event):
 		self.home = subHomeAdmin(None)
@@ -221,21 +229,19 @@ class subEditAdmin(gui.dialogEditAdmin):
 class subFrameData(gui.frameData):
 	def __init__(self,parent,id):
 		gui.frameData.__init__(self,parent)
-		self.id=id
+		self.id = id
 		self.InitData()
 
 	def InitData(self,orderby="users.rekening"):
-		listUser = modelUsersData()
+		listUser = users.modelUsersData()
 		dataListUser = listUser.show(orderby)
 		self.dataUserAdmin.DeleteRows(0, self.dataUserAdmin.GetNumberRows())
-
 		self.dataUserAdmin.AppendRows(len(dataListUser))
 
 		for row in range(len(dataListUser)):
 			for col in range(self.dataUserAdmin.GetNumberCols()):
 				val = dataListUser[row][col]
 				self.dataUserAdmin.SetCellValue(row,col,str(val))
-
 
 	def eventHome(self,event):
 		self.home = subHomeAdmin(None)
