@@ -240,9 +240,8 @@ class subHomeUser(gui.frameHomeUser):
 		self.back.Show()
 
 	def eventFillForm(self,event):
-		self.fillForm = subFormUser(None)
-		self.Destroy()
-		self.fillForm.Show()
+		self.dialog = subFormUser(None)
+		self.dialog.ShowModal()
 
 class subFormUser(gui.dialogFormUser):
 	def __init__(self,parent):
@@ -258,7 +257,7 @@ class subFormUser(gui.dialogFormUser):
 			wx.MessageBox("Terdapat kolom kosong", "ERROR", wx.OK | wx.ICON_ERROR)
 		else:
 			insertUserData.insert(str(inputtedName),str(inputtedRekening),str(inputtedJenis),str(inputtedJumlah))
-			wx.MessageBox("Akun admin telah ditambah", "Insert", wx.OK | wx.ICON_INFORMATION)
+			wx.MessageBox("Data sampah telah ditambah", "Insert", wx.OK | wx.ICON_INFORMATION)
 			self.Destroy()
 
 	def eventCancelForm( self, event ):
