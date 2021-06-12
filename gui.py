@@ -324,7 +324,9 @@ class frameAdminAccount ( wx.Frame ):
 		self.adminAccountTable.SetMargins( 0, 0 )
 
 		# Columns
-		self.adminAccountTable.AutoSizeColumns()
+		self.adminAccountTable.SetColSize( 0, 50 )
+		self.adminAccountTable.SetColSize( 1, 120 )
+		self.adminAccountTable.SetColSize( 2, 120 )
 		self.adminAccountTable.EnableDragColMove( False )
 		self.adminAccountTable.EnableDragColSize( True )
 		self.adminAccountTable.SetColLabelSize( 30 )
@@ -593,7 +595,7 @@ class dialogEditAdmin ( wx.Dialog ):
 class frameData ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Data", pos = wx.DefaultPosition, size = wx.Size( 650,330 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Data", pos = wx.DefaultPosition, size = wx.Size( 790,330 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
@@ -642,7 +644,12 @@ class frameData ( wx.Frame ):
 		self.dataUserAdmin.SetMargins( 0, 0 )
 
 		# Columns
-		self.dataUserAdmin.AutoSizeColumns()
+		self.dataUserAdmin.SetColSize( 0, 200 )
+		self.dataUserAdmin.SetColSize( 1, 100 )
+		self.dataUserAdmin.SetColSize( 2, 75 )
+		self.dataUserAdmin.SetColSize( 3, 80 )
+		self.dataUserAdmin.SetColSize( 4, 10 )
+		self.dataUserAdmin.SetColSize( 5, 150 )
 		self.dataUserAdmin.EnableDragColMove( False )
 		self.dataUserAdmin.EnableDragColSize( True )
 		self.dataUserAdmin.SetColLabelSize( 30 )
@@ -710,7 +717,7 @@ class frameData ( wx.Frame ):
 class frameHomeUser ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Home", pos = wx.DefaultPosition, size = wx.Size( 650,330 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Home", pos = wx.DefaultPosition, size = wx.Size( 790,330 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
@@ -744,7 +751,12 @@ class frameHomeUser ( wx.Frame ):
 		self.dataUserUser.SetMargins( 0, 0 )
 
 		# Columns
-		self.dataUserUser.AutoSizeColumns()
+		self.dataUserUser.SetColSize( 0, 200 )
+		self.dataUserUser.SetColSize( 1, 100 )
+		self.dataUserUser.SetColSize( 2, 75 )
+		self.dataUserUser.SetColSize( 3, 80 )
+		self.dataUserUser.SetColSize( 4, 10 )
+		self.dataUserUser.SetColSize( 5, 150 )
 		self.dataUserUser.EnableDragColMove( False )
 		self.dataUserUser.EnableDragColSize( True )
 		self.dataUserUser.SetColLabelSize( 30 )
