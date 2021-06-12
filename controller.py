@@ -131,12 +131,10 @@ class subAdminAccount(gui.frameAdminAccount):
 
 	def eventDeleteAdminDialog(self,event):
 		deleteAdminData = admin.modelAdminData()
-		inputtedUsername = self.txtUsername.GetValue()
-		inputtedPassword = self.txtPassword.GetValue()
-		dialog = wx.MessageBox("Anda yakin ingin menghapus " + str(self.adminAccountTable.GetValue(self.row,1)) + " ?", wx.YES_NO | wx.ICON_INFORMATION)
-		if dialog == 2:
-			deleteAdminData.delete(str(self.adminAccountTable.GetCellValue(self.row,0)))
-			wx.MessageBox("Data berhasil dihapus", "Delete", wx.OK | wx.ICON_INFORMATION)
+		#dialog = wx.MessageBox("Anda yakin ingin menghapus " + str(self.adminAccountTable.GetCellValue(self.row,1)) + " ?", wx.YES_NO | wx.ICON_INFORMATION)
+		#if dialog == 2:
+		deleteAdminData.delete(str(self.adminAccountTable.GetCellValue(self.row,0)))
+		wx.MessageBox("Data berhasil dihapus", "Delete", wx.OK | wx.ICON_INFORMATION)
 
 
 class subAddAdmin(gui.dialogAddAdmin):
@@ -171,7 +169,7 @@ class subEditAdmin(gui.dialogEditAdmin):
 		updateAdmin = admin.modelAdminData()
 		self.txtUsername.GetValue()
 		self.txtPassword.GetValue()
-		updateAdmin.update(str(self.txtUsername.GetValue()),str(self.txtPassword.GetValue()),str(self.oldid))
+		updateAdmin.update(None,str(self.txtUsername.GetValue()),str(self.txtPassword.GetValue()))
 		wx.MessageBox("Data berhasil diubah", "Update", wx.OK | wx.ICON_INFORMATION)
 		self.Destroy()
 
