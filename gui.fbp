@@ -1089,7 +1089,7 @@
             <property name="minimum_size"></property>
             <property name="name">frameAdminAccount</property>
             <property name="pos"></property>
-            <property name="size">694,230</property>
+            <property name="size">498,230</property>
             <property name="style">wxCAPTION|wxCLOSE_BOX|wxMINIMIZE_BOX</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="title">HSART - Admin Account</property>
@@ -1206,26 +1206,6 @@
                         <property name="name">bSizer13</property>
                         <property name="orient">wxHORIZONTAL</property>
                         <property name="permission">none</property>
-                        <object class="sizeritem" expanded="0">
-                            <property name="border">5</property>
-                            <property name="flag">wxEXPAND</property>
-                            <property name="proportion">1</property>
-                            <object class="spacer" expanded="0">
-                                <property name="height">0</property>
-                                <property name="permission">protected</property>
-                                <property name="width">0</property>
-                            </object>
-                        </object>
-                        <object class="sizeritem" expanded="0">
-                            <property name="border">5</property>
-                            <property name="flag">wxEXPAND</property>
-                            <property name="proportion">1</property>
-                            <object class="spacer" expanded="0">
-                                <property name="height">0</property>
-                                <property name="permission">protected</property>
-                                <property name="width">0</property>
-                            </object>
-                        </object>
                         <object class="sizeritem" expanded="0">
                             <property name="border">5</property>
                             <property name="flag">wxALL</property>
@@ -1445,26 +1425,6 @@
                                 <event name="OnButtonClick">eventDeleteAdminDialog</event>
                             </object>
                         </object>
-                        <object class="sizeritem" expanded="0">
-                            <property name="border">5</property>
-                            <property name="flag">wxEXPAND</property>
-                            <property name="proportion">1</property>
-                            <object class="spacer" expanded="0">
-                                <property name="height">0</property>
-                                <property name="permission">protected</property>
-                                <property name="width">0</property>
-                            </object>
-                        </object>
-                        <object class="sizeritem" expanded="0">
-                            <property name="border">5</property>
-                            <property name="flag">wxEXPAND</property>
-                            <property name="proportion">1</property>
-                            <object class="spacer" expanded="0">
-                                <property name="height">0</property>
-                                <property name="permission">protected</property>
-                                <property name="width">0</property>
-                            </object>
-                        </object>
                     </object>
                 </object>
                 <object class="sizeritem" expanded="1">
@@ -1508,7 +1468,7 @@
                                 <property name="col_label_values">&quot;ID&quot; &quot;Username&quot; &quot;Password&quot;</property>
                                 <property name="col_label_vert_alignment">wxALIGN_CENTER</property>
                                 <property name="cols">3</property>
-                                <property name="column_sizes">50,120,120</property>
+                                <property name="column_sizes">30,150,150</property>
                                 <property name="context_help"></property>
                                 <property name="context_menu">1</property>
                                 <property name="default_pane">0</property>
@@ -2771,7 +2731,7 @@
             <property name="minimum_size"></property>
             <property name="name">frameData</property>
             <property name="pos"></property>
-            <property name="size">800,330</property>
+            <property name="size">790,330</property>
             <property name="style">wxCAPTION|wxCLOSE_BOX|wxMINIMIZE_BOX</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="title">HSART - Data</property>

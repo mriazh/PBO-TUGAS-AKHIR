@@ -262,7 +262,7 @@ class frameHomeAdmin ( wx.Frame ):
 class frameAdminAccount ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Admin Account", pos = wx.DefaultPosition, size = wx.Size( 694,230 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Admin Account", pos = wx.DefaultPosition, size = wx.Size( 498,230 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
@@ -296,12 +296,6 @@ class frameAdminAccount ( wx.Frame ):
 
 		bSizer13 = wx.BoxSizer( wx.HORIZONTAL )
 
-
-		bSizer13.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-
-		bSizer13.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
 		self.addAdminButton = wx.Button( self, wx.ID_ANY, u"Tambah", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer13.Add( self.addAdminButton, 0, wx.ALL, 5 )
 
@@ -310,12 +304,6 @@ class frameAdminAccount ( wx.Frame ):
 
 		self.deleteAdminButton = wx.Button( self, wx.ID_ANY, u"Hapus", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer13.Add( self.deleteAdminButton, 0, wx.ALL, 5 )
-
-
-		bSizer13.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-
-		bSizer13.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
 
 		eventHome.Add( bSizer13, 1, wx.EXPAND, 5 )
@@ -332,9 +320,9 @@ class frameAdminAccount ( wx.Frame ):
 		self.adminAccountTable.SetMargins( 0, 0 )
 
 		# Columns
-		self.adminAccountTable.SetColSize( 0, 50 )
-		self.adminAccountTable.SetColSize( 1, 120 )
-		self.adminAccountTable.SetColSize( 2, 120 )
+		self.adminAccountTable.SetColSize( 0, 30 )
+		self.adminAccountTable.SetColSize( 1, 150 )
+		self.adminAccountTable.SetColSize( 2, 150 )
 		self.adminAccountTable.EnableDragColMove( False )
 		self.adminAccountTable.EnableDragColSize( True )
 		self.adminAccountTable.SetColLabelSize( 30 )
@@ -600,7 +588,7 @@ class dialogEditAdmin ( wx.Dialog ):
 class frameData ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Data", pos = wx.DefaultPosition, size = wx.Size( 800,330 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Data", pos = wx.DefaultPosition, size = wx.Size( 790,330 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )

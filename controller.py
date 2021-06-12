@@ -1,7 +1,6 @@
 import wx
 import sqlite3
 import gui
-import connect
 import admin
 import users
 
@@ -161,7 +160,7 @@ class subEditAdmin(gui.dialogEditAdmin):
 		self.txtPassword.SetValue(str(adminid[1]))
 
 	def eventEditAdmin(self,event):
-		updateAdmin = modelAdminData()
+		updateAdmin = admin.modelAdminData()
 		self.txtUsername.GetValue()
 		self.txtPassword.GetValue()
 		updateAdmin.update(str(self.txtUsername.GetValue()),str(self.txtPassword.GetValue()),str(self.oldid))
@@ -215,7 +214,7 @@ class subHomeUser(gui.frameHomeUser):
 		self.InitData()
 
 	def InitData(self,orderby="users.rekening"):
-		listUser = modelUsersData()
+		listUser = users.modelUsersData()
 		dataListUser = listUser.show(orderby)
 		self.dataUserUser.DeleteRows(0, self.dataUserUser.GetNumberRows())
 
