@@ -169,7 +169,7 @@ class subEditAdmin(gui.dialogEditAdmin):
 		updateAdmin = admin.modelAdminData()
 		self.txtUsername.GetValue()
 		self.txtPassword.GetValue()
-		updateAdmin.update(None,str(self.txtUsername.GetValue()),str(self.txtPassword.GetValue()))
+		updateAdmin.update(str(self.txtUsername.GetValue()),str(self.txtPassword.GetValue()),self.oldid)
 		wx.MessageBox("Data berhasil diubah", "Update", wx.OK | wx.ICON_INFORMATION)
 		self.Destroy()
 
@@ -183,7 +183,7 @@ class subFrameData(gui.frameData):
 		self.id = id
 		self.InitData()
 
-	def InitData(self,orderby="users.rekening"):
+	def InitData(self,orderby="users.id"):
 		listUser = users.modelUsersData()
 		dataListUser = listUser.show(orderby)
 		self.dataUserAdmin.DeleteRows(0, self.dataUserAdmin.GetNumberRows())
@@ -193,6 +193,14 @@ class subFrameData(gui.frameData):
 			for col in range(self.dataUserAdmin.GetNumberCols()):
 				val = dataListUser[row][col]
 				self.dataUserAdmin.SetCellValue(row,col,str(val))
+
+	def eventSelectCell(self, event):
+		col = event.GetCol()
+		self.row = event.GetRow()	
+
+	def validate(self, event):
+		self.dialog = subValidate(None,self.dataUserAdmin.GetCellValue(self.row,0))
+		self.dialog.ShowModal()
 
 	def eventHome(self,event):
 		self.home = subHomeAdmin(None)
@@ -216,6 +224,24 @@ class subFrameData(gui.frameData):
 			self.Destroy()
 			self.login.Show()
 
+class subValidate(gui.dialogValidate):
+	def __init__(self,parent,id):
+		gui.dialogValidate.__init__(self,parent)
+		listuser = users.modelUsersData()
+		self.oldid = id
+		userid = listuser.getByid(self.oldid)
+		self.txtUpah.SetValue(str(userid[5]))
+		#self.txtPassword.SetValue(str(userid[2]))
+
+	def eventSaveValidate(self,event):
+		updateValidasi = users.modelUsersData()
+		self.txtUpah.GetValue()
+		updateValidasi.update(int(self.txtUpah.GetValue()),self.oldid)
+		wx.MessageBox("Data berhasil divalidasi", "Update", wx.OK | wx.ICON_INFORMATION)
+		self.Destroy()
+
+	def eventCancelValidate(self,event):
+		self.Destroy()
 
 class subHomeUser(gui.frameHomeUser):
 	def __init__(self,parent):
@@ -223,7 +249,7 @@ class subHomeUser(gui.frameHomeUser):
 		self.id=id
 		self.InitData()
 
-	def InitData(self,orderby="users.rekening"):
+	def InitData(self,orderby="users.id"):
 		listUser = users.modelUsersData()
 		dataListUser = listUser.show(orderby)
 		self.dataUserUser.DeleteRows(0, self.dataUserUser.GetNumberRows())

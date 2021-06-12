@@ -28,16 +28,15 @@ class modelAdminData(connect.dataManagement):
 		result = self.cur.fetchone()
 		return result
 
-	def update(self,id,username,password):
-		#self.oldid = oldid
-		self.id = id
+	def update(self,username,password,id):
 		self.username = username
 		self.password = password
-
+		self.id=id
+		
 		query = """UPDATE admin 
 				username = '{}', 
 				password = '{}',  
-				WHERE id = '{}'""".format( self.username, self.password,self.id)
+				WHERE id = '{}'""".format(self.username, self.password,self.id)
 		self.cur = self.conn.cursor()
 		self.cur.execute(query)
 		self.conn.commit()

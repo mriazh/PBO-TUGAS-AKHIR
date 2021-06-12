@@ -634,29 +634,30 @@ class frameData ( wx.Frame ):
 		self.dataUserAdmin = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
 
 		# Grid
-		self.dataUserAdmin.CreateGrid( 10, 6 )
-		self.dataUserAdmin.EnableEditing( True )
+		self.dataUserAdmin.CreateGrid( 10, 7 )
+		self.dataUserAdmin.EnableEditing( False )
 		self.dataUserAdmin.EnableGridLines( True )
 		self.dataUserAdmin.EnableDragGridSize( False )
 		self.dataUserAdmin.SetMargins( 0, 0 )
 
 		# Columns
-		self.dataUserAdmin.SetColSize( 0, 200 )
+		self.dataUserAdmin.SetColSize( 0, 50 )
 		self.dataUserAdmin.SetColSize( 1, 100 )
 		self.dataUserAdmin.SetColSize( 2, 75 )
 		self.dataUserAdmin.SetColSize( 3, 80 )
 		self.dataUserAdmin.SetColSize( 4, 10 )
-		self.dataUserAdmin.SetColSize( 5, 150 )
+		self.dataUserAdmin.SetColSize( 5, 80 )
+		self.dataUserAdmin.SetColSize( 6, 100 )
 		self.dataUserAdmin.EnableDragColMove( False )
 		self.dataUserAdmin.EnableDragColSize( True )
 		self.dataUserAdmin.SetColLabelSize( 30 )
-		self.dataUserAdmin.SetColLabelValue( 0, u"Nama" )
-		self.dataUserAdmin.SetColLabelValue( 1, u"No Rekening" )
-		self.dataUserAdmin.SetColLabelValue( 2, u"Jenis" )
-		self.dataUserAdmin.SetColLabelValue( 3, u"Jumlah (Kg)" )
-		self.dataUserAdmin.SetColLabelValue( 4, u"Harga" )
-		self.dataUserAdmin.SetColLabelValue( 5, u"Status" )
-		self.dataUserAdmin.SetColLabelValue( 6, u"Jenis" )
+		self.dataUserAdmin.SetColLabelValue( 0, u"ID" )
+		self.dataUserAdmin.SetColLabelValue( 1, u"Nama" )
+		self.dataUserAdmin.SetColLabelValue( 2, u"No Rekening" )
+		self.dataUserAdmin.SetColLabelValue( 3, u"Jenis" )
+		self.dataUserAdmin.SetColLabelValue( 4, u"Jumlah (Kg)" )
+		self.dataUserAdmin.SetColLabelValue( 5, u"Harga" )
+		self.dataUserAdmin.SetColLabelValue( 6, u"Status" )
 		self.dataUserAdmin.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
 
 		# Rows
@@ -685,6 +686,7 @@ class frameData ( wx.Frame ):
 		self.Bind( wx.EVT_MENU, self.eventDataPage, id = self.dataChoose.GetId() )
 		self.Bind( wx.EVT_MENU, self.eventLogout, id = self.logoutMenuChoose.GetId() )
 		self.validasi.Bind( wx.EVT_BUTTON, self.validate )
+		self.dataUserAdmin.Bind( wx.grid.EVT_GRID_SELECT_CELL, self.eventSelectCell )
 
 	def __del__( self ):
 		pass
@@ -704,6 +706,94 @@ class frameData ( wx.Frame ):
 		event.Skip()
 
 	def validate( self, event ):
+		event.Skip()
+
+	def eventSelectCell( self, event ):
+		event.Skip()
+
+
+###########################################################################
+## Class dialogValidate
+###########################################################################
+
+class dialogValidate ( wx.Dialog ):
+
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Edit Account", pos = wx.DefaultPosition, size = wx.Size( 400,200 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX )
+
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+
+		bSizer1 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText4 = wx.StaticText( self, wx.ID_ANY, u"Ubah Akun", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText4.Wrap( -1 )
+
+		self.m_staticText4.SetFont( wx.Font( 24, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Aquino Demo" ) )
+
+		bSizer1.Add( self.m_staticText4, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		self.m_panel1 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		fgSizer1 = wx.FlexGridSizer( 0, 2, 0, 0 )
+		fgSizer1.SetFlexibleDirection( wx.BOTH )
+		fgSizer1.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+
+		self.m_staticText1 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"upah", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+		self.m_staticText1.Wrap( -1 )
+
+		self.m_staticText1.SetFont( wx.Font( 12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Century" ) )
+
+		fgSizer1.Add( self.m_staticText1, 0, wx.ALL, 5 )
+
+		self.txtUpah = wx.TextCtrl( self.m_panel1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 200,-1 ), 0 )
+		fgSizer1.Add( self.txtUpah, 0, wx.ALL, 5 )
+
+
+		self.m_panel1.SetSizer( fgSizer1 )
+		self.m_panel1.Layout()
+		fgSizer1.Fit( self.m_panel1 )
+		bSizer1.Add( self.m_panel1, 1, wx.EXPAND |wx.ALL, 5 )
+
+		bSizer20 = wx.BoxSizer( wx.HORIZONTAL )
+
+
+		bSizer20.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+		self.buttonEdit = wx.Button( self, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.buttonEdit.SetFont( wx.Font( 10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Century" ) )
+
+		bSizer20.Add( self.buttonEdit, 0, wx.ALL, 5 )
+
+		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.buttonCancel.SetFont( wx.Font( 10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Century" ) )
+
+		bSizer20.Add( self.buttonCancel, 0, wx.ALL, 5 )
+
+
+		bSizer20.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
+		bSizer1.Add( bSizer20, 1, wx.EXPAND, 5 )
+
+
+		self.SetSizer( bSizer1 )
+		self.Layout()
+
+		self.Centre( wx.BOTH )
+
+		# Connect Events
+		self.buttonEdit.Bind( wx.EVT_BUTTON, self.eventSaveValidate )
+		self.buttonCancel.Bind( wx.EVT_BUTTON, self.eventCancelValidate )
+
+	def __del__( self ):
+		pass
+
+
+	# Virtual event handlers, overide them in your derived class
+	def eventSaveValidate( self, event ):
+		event.Skip()
+
+	def eventCancelValidate( self, event ):
 		event.Skip()
 
 
@@ -741,29 +831,30 @@ class frameHomeUser ( wx.Frame ):
 		self.dataUserUser = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
 
 		# Grid
-		self.dataUserUser.CreateGrid( 10, 6 )
-		self.dataUserUser.EnableEditing( True )
+		self.dataUserUser.CreateGrid( 10, 7 )
+		self.dataUserUser.EnableEditing( False )
 		self.dataUserUser.EnableGridLines( True )
 		self.dataUserUser.EnableDragGridSize( False )
 		self.dataUserUser.SetMargins( 0, 0 )
 
 		# Columns
-		self.dataUserUser.SetColSize( 0, 200 )
+		self.dataUserUser.SetColSize( 0, 50 )
 		self.dataUserUser.SetColSize( 1, 100 )
 		self.dataUserUser.SetColSize( 2, 75 )
 		self.dataUserUser.SetColSize( 3, 80 )
 		self.dataUserUser.SetColSize( 4, 10 )
-		self.dataUserUser.SetColSize( 5, 150 )
+		self.dataUserUser.SetColSize( 5, 80 )
+		self.dataUserUser.SetColSize( 6, 100 )
 		self.dataUserUser.EnableDragColMove( False )
 		self.dataUserUser.EnableDragColSize( True )
 		self.dataUserUser.SetColLabelSize( 30 )
-		self.dataUserUser.SetColLabelValue( 0, u"Nama" )
-		self.dataUserUser.SetColLabelValue( 1, u"No Rekening" )
-		self.dataUserUser.SetColLabelValue( 2, u"Jenis" )
-		self.dataUserUser.SetColLabelValue( 3, u"Jumlah (Kg)" )
-		self.dataUserUser.SetColLabelValue( 4, u"Harga" )
-		self.dataUserUser.SetColLabelValue( 5, u"Status" )
-		self.dataUserUser.SetColLabelValue( 6, u"Jenis" )
+		self.dataUserUser.SetColLabelValue( 0, u"ID" )
+		self.dataUserUser.SetColLabelValue( 1, u"Nama" )
+		self.dataUserUser.SetColLabelValue( 2, u"No Rekening" )
+		self.dataUserUser.SetColLabelValue( 3, u"Jenis" )
+		self.dataUserUser.SetColLabelValue( 4, u"Jumlah (Kg)" )
+		self.dataUserUser.SetColLabelValue( 5, u"Harga" )
+		self.dataUserUser.SetColLabelValue( 6, u"Status" )
 		self.dataUserUser.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
 
 		# Rows
