@@ -249,7 +249,17 @@ class subFormUser(gui.dialogFormUser):
 		gui.dialogFormUser.__init__(self,parent)
 
 	def eventSaveForm( self, event ):
-		event.Skip()
+		insertUserData = users.modelUsersData()
+		inputtedName = self.txtName.GetValue()
+		inputtedRekening = self.txtRekening.GetValue()
+		inputtedJenis = self.txtJenis.GetValue()
+		inputtedJumlah = self.txtJumlah.GetValue()		
+		if inputtedName=="" or inputtedRekening=="" or inputtedJenis=="" or inputtedJumlah=="":
+			wx.MessageBox("Terdapat kolom kosong", "ERROR", wx.OK | wx.ICON_ERROR)
+		else:
+			insertUserData.insert(str(inputtedName),str(inputtedRekening),str(inputtedJenis),str(inputtedJumlah))
+			wx.MessageBox("Akun admin telah ditambah", "Insert", wx.OK | wx.ICON_INFORMATION)
+			self.Destroy()
 
 	def eventCancelForm( self, event ):
-		event.Skip()
+		self.Destroy()
