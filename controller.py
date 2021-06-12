@@ -169,7 +169,7 @@ class subAdminAccount(gui.frameAdminAccount):
 		self.row = event.GetRow()	
 
 	def eventEditAdminDialog(self,event):
-		#self.dialog = subEditAdmin(None,self.adminAccountTable.GetCellValue(self.row,0))
+		self.dialog = subEditAdmin(None,self.adminAccountTable.GetCellValue(self.row,0))
 		self.dialog.ShowModal()
 
 	def eventDeleteAdminDialog(self,event):
