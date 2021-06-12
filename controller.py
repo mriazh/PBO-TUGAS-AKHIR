@@ -81,7 +81,7 @@ class subAdminAccount(gui.frameAdminAccount):
 		self.InitData()		
 
 	def InitData(self,orderby="admin.id"):
-		listAdmin = modelAdminData()
+		listAdmin = admin.modelAdminData()
 		dataListAdmin = listAdmin.show(orderby)
 		self.adminAccountTable.DeleteRows(0, self.adminAccountTable.GetNumberRows())
 
@@ -119,12 +119,12 @@ class subAdminAccount(gui.frameAdminAccount):
 		self.dialog.ShowModal()
 
 	def eventDeleteAdminDialog(self,event):
-		deleteAdminAccount = admin.adminAccount()
+		deleteAdminData = admin.modelAdminData()
 		inputtedUsername = self.txtUsername.GetValue()
 		inputtedPassword = self.txtPassword.GetValue()
 		dialog = wx.MessageBox("Anda yakin ingin menghapus " + str(self.adminAccountTable.GetValue(self.row,1)) + " ?", wx.YES_NO | wx.ICON_INFORMATION)
 		if dialog == 2:
-			deleteAdminAccount.delete(str(self.adminAccountTable.GetCellValue(self.row,0)))
+			deleteAdminData.delete(str(self.adminAccountTable.GetCellValue(self.row,0)))
 			wx.MessageBox("Data berhasil dihapus", "Delete", wx.OK | wx.ICON_INFORMATION)
 
 
@@ -133,13 +133,13 @@ class subAddAdmin(gui.dialogAddAdmin):
 		gui.dialogAddAdmin.__init__(self,parent)
 		
 	def eventAddAdmin(self,event):
-		insertAdminAccount = modelAdminData()
+		insertAdminData = admin.modelAdminData()
 		inputtedUsername = self.txtUsername.GetValue()
 		inputtedPassword = self.txtPassword.GetValue()
 		if inputtedUsername=="" or inputtedPassword=="":
 			wx.MessageBox("Terdapat kolom kosong", "ERROR", wx.OK | wx.ICON_ERROR)
 		else:
-			insertAdminAccount.insert(str(inputtedUsername),str(inputtedPassword))
+			insertAdminData.insert(str(inputtedUsername),str(inputtedPassword))
 			wx.MessageBox("Akun admin telah ditambah", "Insert", wx.OK | wx.ICON_INFORMATION)
 			self.Destroy()
 
@@ -150,7 +150,7 @@ class subAddAdmin(gui.dialogAddAdmin):
 class subEditAdmin(gui.dialogEditAdmin):
 	def __init__(self,parent,id):
 		gui.dialogEditAdmin.__init__(self,parent)
-		listadmin=modelAdminData()
+		listadmin = admin.modelAdminData()
 		self.oldid = id
 		adminid = listadmin.getByid(self.oldid)
 		self.txtUsername.SetValue(str(adminid[0]))

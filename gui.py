@@ -324,7 +324,9 @@ class frameAdminAccount ( wx.Frame ):
 		self.adminAccountTable.SetMargins( 0, 0 )
 
 		# Columns
-		self.adminAccountTable.AutoSizeColumns()
+		self.adminAccountTable.SetColSize( 0, 50 )
+		self.adminAccountTable.SetColSize( 1, 120 )
+		self.adminAccountTable.SetColSize( 2, 120 )
 		self.adminAccountTable.EnableDragColMove( False )
 		self.adminAccountTable.EnableDragColSize( True )
 		self.adminAccountTable.SetColLabelSize( 30 )
@@ -593,11 +595,7 @@ class dialogEditAdmin ( wx.Dialog ):
 class frameData ( wx.Frame ):
 
 	def __init__( self, parent ):
-<<<<<<< Updated upstream
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Data", pos = wx.DefaultPosition, size = wx.Size( 650,330 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
-=======
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Data", pos = wx.DefaultPosition, size = wx.Size( 800,330 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
->>>>>>> Stashed changes
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
@@ -646,7 +644,12 @@ class frameData ( wx.Frame ):
 		self.dataUserAdmin.SetMargins( 0, 0 )
 
 		# Columns
-		self.dataUserAdmin.AutoSizeColumns()
+		self.dataUserAdmin.SetColSize( 0, 200 )
+		self.dataUserAdmin.SetColSize( 1, 100 )
+		self.dataUserAdmin.SetColSize( 2, 75 )
+		self.dataUserAdmin.SetColSize( 3, 80 )
+		self.dataUserAdmin.SetColSize( 4, 10 )
+		self.dataUserAdmin.SetColSize( 5, 150 )
 		self.dataUserAdmin.EnableDragColMove( False )
 		self.dataUserAdmin.EnableDragColSize( True )
 		self.dataUserAdmin.SetColLabelSize( 30 )
@@ -708,98 +711,13 @@ class frameData ( wx.Frame ):
 
 
 ###########################################################################
-## Class dialogAddAdmin1
-###########################################################################
-
-class dialogAddAdmin1 ( wx.Dialog ):
-
-	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Add Account", pos = wx.DefaultPosition, size = wx.Size( 400,200 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX )
-
-		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
-		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
-
-		bSizer1 = wx.BoxSizer( wx.VERTICAL )
-
-		self.m_staticText4 = wx.StaticText( self, wx.ID_ANY, u"Validasi", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText4.Wrap( -1 )
-
-		self.m_staticText4.SetFont( wx.Font( 24, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Aquino Demo" ) )
-
-		bSizer1.Add( self.m_staticText4, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-		self.m_panel1 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		fgSizer1 = wx.FlexGridSizer( 0, 2, 0, 0 )
-		fgSizer1.SetFlexibleDirection( wx.BOTH )
-		fgSizer1.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-
-		self.m_staticText1 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"upah", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		self.m_staticText1.Wrap( -1 )
-
-		self.m_staticText1.SetFont( wx.Font( 12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Century" ) )
-
-		fgSizer1.Add( self.m_staticText1, 0, wx.ALL, 5 )
-
-		self.txtUsername = wx.TextCtrl( self.m_panel1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 200,-1 ), 0 )
-		fgSizer1.Add( self.txtUsername, 0, wx.ALL, 5 )
-
-
-		self.m_panel1.SetSizer( fgSizer1 )
-		self.m_panel1.Layout()
-		fgSizer1.Fit( self.m_panel1 )
-		bSizer1.Add( self.m_panel1, 1, wx.EXPAND |wx.ALL, 5 )
-
-		bSizer20 = wx.BoxSizer( wx.HORIZONTAL )
-
-
-		bSizer20.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.buttonAdd = wx.Button( self, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.buttonAdd.SetFont( wx.Font( 10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Century" ) )
-
-		bSizer20.Add( self.buttonAdd, 0, wx.ALL, 5 )
-
-		self.buttonCancelAdmin = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.buttonCancelAdmin.SetFont( wx.Font( 10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Century" ) )
-
-		bSizer20.Add( self.buttonCancelAdmin, 0, wx.ALL, 5 )
-
-
-		bSizer20.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-
-		bSizer1.Add( bSizer20, 1, wx.EXPAND, 5 )
-
-
-		self.SetSizer( bSizer1 )
-		self.Layout()
-
-		self.Centre( wx.BOTH )
-
-		# Connect Events
-		self.buttonAdd.Bind( wx.EVT_BUTTON, self.eventAddAdmin )
-		self.buttonCancelAdmin.Bind( wx.EVT_BUTTON, self.eventCancelAdmin )
-
-	def __del__( self ):
-		pass
-
-
-	# Virtual event handlers, overide them in your derived class
-	def eventAddAdmin( self, event ):
-		event.Skip()
-
-	def eventCancelAdmin( self, event ):
-		event.Skip()
-
-
-###########################################################################
 ## Class frameHomeUser
 ###########################################################################
 
 class frameHomeUser ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Home", pos = wx.DefaultPosition, size = wx.Size( 650,330 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Home", pos = wx.DefaultPosition, size = wx.Size( 790,330 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
@@ -833,6 +751,12 @@ class frameHomeUser ( wx.Frame ):
 		self.dataUserUser.SetMargins( 0, 0 )
 
 		# Columns
+		self.dataUserUser.SetColSize( 0, 200 )
+		self.dataUserUser.SetColSize( 1, 100 )
+		self.dataUserUser.SetColSize( 2, 75 )
+		self.dataUserUser.SetColSize( 3, 80 )
+		self.dataUserUser.SetColSize( 4, 10 )
+		self.dataUserUser.SetColSize( 5, 150 )
 		self.dataUserUser.EnableDragColMove( False )
 		self.dataUserUser.EnableDragColSize( True )
 		self.dataUserUser.SetColLabelSize( 30 )
@@ -847,7 +771,7 @@ class frameHomeUser ( wx.Frame ):
 
 		# Rows
 		self.dataUserUser.EnableDragRowSize( True )
-		self.dataUserUser.SetRowLabelSize( 100 )
+		self.dataUserUser.SetRowLabelSize( 80 )
 		self.dataUserUser.SetRowLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
 
 		# Label Appearance
