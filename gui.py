@@ -829,7 +829,6 @@ class frameHomeUser ( wx.Frame ):
 		self.dataUserUser.SetMargins( 0, 0 )
 
 		# Columns
-		self.dataUserUser.AutoSizeColumns()
 		self.dataUserUser.EnableDragColMove( False )
 		self.dataUserUser.EnableDragColSize( True )
 		self.dataUserUser.SetColLabelSize( 30 )
@@ -844,7 +843,7 @@ class frameHomeUser ( wx.Frame ):
 
 		# Rows
 		self.dataUserUser.EnableDragRowSize( True )
-		self.dataUserUser.SetRowLabelSize( 80 )
+		self.dataUserUser.SetRowLabelSize( 100 )
 		self.dataUserUser.SetRowLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
 
 		# Label Appearance
