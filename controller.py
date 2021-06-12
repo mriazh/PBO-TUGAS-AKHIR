@@ -156,8 +156,8 @@ class subEditAdmin(gui.dialogEditAdmin):
 		listadmin = admin.modelAdminData()
 		self.oldid = id
 		adminid = listadmin.getByid(self.oldid)
-		self.txtUsername.SetValue(str(adminid[0]))
-		self.txtPassword.SetValue(str(adminid[1]))
+		self.txtUsername.SetValue(str(adminid[1]))
+		self.txtPassword.SetValue(str(adminid[2]))
 
 	def eventEditAdmin(self,event):
 		updateAdmin = admin.modelAdminData()

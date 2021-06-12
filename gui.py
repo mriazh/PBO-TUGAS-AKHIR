@@ -314,7 +314,7 @@ class frameAdminAccount ( wx.Frame ):
 
 		# Grid
 		self.adminAccountTable.CreateGrid( 3, 3 )
-		self.adminAccountTable.EnableEditing( True )
+		self.adminAccountTable.EnableEditing( False )
 		self.adminAccountTable.EnableGridLines( True )
 		self.adminAccountTable.EnableDragGridSize( False )
 		self.adminAccountTable.SetMargins( 0, 0 )
@@ -359,6 +359,7 @@ class frameAdminAccount ( wx.Frame ):
 		self.addAdminButton.Bind( wx.EVT_BUTTON, self.eventAddAdminDialog )
 		self.editAdminButton.Bind( wx.EVT_BUTTON, self.eventEditAdminDialog )
 		self.deleteAdminButton.Bind( wx.EVT_BUTTON, self.eventDeleteAdminDialog )
+		self.adminAccountTable.Bind( wx.grid.EVT_GRID_SELECT_CELL, self.eventSelectCell )
 
 	def __del__( self ):
 		pass
@@ -384,6 +385,9 @@ class frameAdminAccount ( wx.Frame ):
 		event.Skip()
 
 	def eventDeleteAdminDialog( self, event ):
+		event.Skip()
+
+	def eventSelectCell( self, event ):
 		event.Skip()
 
 
