@@ -262,7 +262,7 @@ class frameHomeAdmin ( wx.Frame ):
 class frameAdminAccount ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Admin Account", pos = wx.DefaultPosition, size = wx.Size( 400,230 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Admin Account", pos = wx.DefaultPosition, size = wx.Size( 694,230 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
@@ -312,7 +312,15 @@ class frameAdminAccount ( wx.Frame ):
 		bSizer13.Add( self.deleteAdminButton, 0, wx.ALL, 5 )
 
 
+		bSizer13.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
+		bSizer13.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
 		eventHome.Add( bSizer13, 1, wx.EXPAND, 5 )
+
+		wSizer1 = wx.WrapSizer( wx.HORIZONTAL, wx.WRAPSIZER_DEFAULT_FLAGS )
 
 		self.adminAccountTable = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
 
@@ -344,13 +352,10 @@ class frameAdminAccount ( wx.Frame ):
 
 		# Cell Defaults
 		self.adminAccountTable.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
-		eventHome.Add( self.adminAccountTable, 0, wx.ALL, 5 )
+		wSizer1.Add( self.adminAccountTable, 0, wx.ALL, 5 )
 
 
-		eventHome.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-
-		eventHome.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		eventHome.Add( wSizer1, 1, wx.EXPAND, 5 )
 
 
 		self.SetSizer( eventHome )
