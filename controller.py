@@ -114,8 +114,12 @@ class subAdminAccount(gui.frameAdminAccount):
 		self.dialog = subAddAdmin(None)
 		self.dialog.ShowModal()
 
+	def eventSelectCell(self, event):
+		col = event.GetCol()
+		self.row = event.GetRow()	
+
 	def eventEditAdminDialog(self,event):
-		self.dialog = subEditAdmin(None)
+		self.dialog = subEditAdmin(None,self.adminAccountTable.GetCellValue(self.row,0))
 		self.dialog.ShowModal()
 
 	def eventDeleteAdminDialog(self,event):
