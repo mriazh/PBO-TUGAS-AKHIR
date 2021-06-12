@@ -33,6 +33,30 @@ class modelAdminData(connect.dataManagement):
         self.cur.execute(query)
         self.conn.commit()
 
+    def getByid(self, id=1):
+        self.id = id
+        result = []
+        query = "SELECT admin.id,username,password FROM admin WHERE admin.id = {}".format(self.id)
+        self.cur = self.conn.cursor()
+        self.cur.execute(query)
+        result = self.cur.fetchone()
+        return result
+
+    def update(self,id,username,password,oldid):
+        self.oldid = oldid
+        self.id = id
+        self.username = username
+        self.password = password
+
+        query = """UPDATE admin 
+                SET id = '{}', 
+                username = '{}', 
+                password = '{}',  
+                WHERE id = '{}'""".format(self.id, self.username, self.password,self.oldid)
+        self.cur = self.conn.cursor()
+        self.cur.execute(query)
+        self.conn.commit()
+
 class App(wx.App):
 	appFrame=None
 
@@ -174,16 +198,22 @@ class subAddAdmin(gui.dialogAddAdmin):
 
 
 class subEditAdmin(gui.dialogEditAdmin):
-	def __init__(self,parent):
+	def __init__(self,parent,id):
 		gui.dialogEditAdmin.__init__(self,parent)
+		listadmin=modelAdminData()
+		self.oldid = id
+		adminid = listadmin.getByid(self.oldid)
+		self.txtUsername.SetValue(str(adminid[0]))
+		self.txtPassword.SetValue(str(adminid[1]))
 
 	def eventEditAdmin(self,event):
-		editAdminAccount = admin.adminAccount()
-		inputtedUsername = self.txtUsername.GetValue()
-		inputtedPassword = self.txtPassword.GetValue()
-		editAdminAccount.update(str(inputtedUsername),str(inputtedPassword))
-		editAdminAccount.update(str(inputtedUsername),str(inputtedPassword))
-		wx.MessageBox("Akun admin telah diubah", "Update", wx.OK | wx.ICON_INFORMATION)
+		updateAdmin = modelAdminData()
+		self.txtUsername.GetValue()
+		self.txtPassword.GetValue()
+
+        
+		updateAdmin.update(str(self.txtUsername.GetValue()),str(self.txtPassword.GetValue()),str(self.m_textCtrl22.GetValue()),str(self.m_textCtrl23.GetValue()),str(self.m_textCtrl24.GetValue()),str(self.m_comboBox1.GetValue()),str(self.idperangkat),str(1),str(self.oldid))
+		wx.MessageBox("Data berhasil diubah", "Update", wx.OK | wx.ICON_INFORMATION)
 		self.Destroy()
 
 	def eventCancelAdmin(self,event):
