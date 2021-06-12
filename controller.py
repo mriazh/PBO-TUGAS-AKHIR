@@ -6,48 +6,6 @@ import admin
 import users
 
 
-class modelAdminData(connect.dataManagement):
-    def show(self,orderby="admin.id"):
-        self.orderby = orderby
-        result = []
-        query = "SELECT admin.id,username,password FROM admin"
-        self.cur = self.conn.cursor()
-        self.cur.execute(query)
-        result = self.cur.fetchall()
-        return result
-
-    def insert(self,username,password):
-        self.username = username
-        self.password = password
-        query = "INSERT INTO admin (username,password) VALUES ('{}','{}')".format(self.username,self.password)
-        self.cur = self.conn.cursor()
-        self.cur.execute(query)
-        self.conn.commit()
-
-    def getByid(self, id=1):
-        self.id = id
-        result = []
-        query = "SELECT admin.id,username,password FROM admin WHERE admin.id = {}".format(self.id)
-        self.cur = self.conn.cursor()
-        self.cur.execute(query)
-        result = self.cur.fetchone()
-        return result
-
-    def update(self,id,username,password,oldid):
-        self.oldid = oldid
-        self.id = id
-        self.username = username
-        self.password = password
-
-        query = """UPDATE admin 
-                SET id = '{}', 
-                username = '{}', 
-                password = '{}',  
-                WHERE id = '{}'""".format(self.id, self.username, self.password,self.oldid)
-        self.cur = self.conn.cursor()
-        self.cur.execute(query)
-        self.conn.commit()
-
 class App(wx.App):
 	appFrame=None
 
@@ -119,7 +77,6 @@ class subHomeAdmin(gui.frameHomeAdmin):
 class subAdminAccount(gui.frameAdminAccount):
 	def __init__(self,parent):
 		gui.frameAdminAccount.__init__(self,parent)
-<<<<<<< Updated upstream
 		self.id=id
 		self.InitData()		
 
@@ -134,21 +91,6 @@ class subAdminAccount(gui.frameAdminAccount):
 			for col in range(self.adminAccountTable.GetNumberCols()):
 				val = dataListAdmin[row][col]
 				self.adminAccountTable.SetCellValue(row,col,str(val))	
-=======
-		self.id = id
-		self.InitData()
-
-	def InitData(self,orderby="users.rekening"):
-		listUser = admin.modelAdminAccount()
-		dataListUser = listUser.show(orderby)
-		self.dataUserAdmin.DeleteRows(0, self.dataUserAdmin.GetNumberRows())
-		self.dataUserAdmin.AppendRows(len(dataListUser))
-
-		for row in range(len(dataListUser)):
-			for col in range(self.dataUserAdmin.GetNumberCols()):
-				val = dataListUser[row][col]
-				self.dataUserAdmin.SetCellValue(row,col,str(val))
->>>>>>> Stashed changes
 
 	def eventHome(self,event):
 		self.home = subHomeAdmin(None)
