@@ -1,106 +1,197 @@
 import wx
-from gui import *
 import sqlite3
-import sys
-
-#koneksi ke db
-class dataManager:
-	def __init__(self):
-		self.isDebug = False
-		self.con = sqlite3.connect('myDb.sqlite3')
-		self.cursor = self.con.cursor() # instantiate a cursor obj
-	def executeQuery(self, query, retVal=False):
-		errMessage = 'conn error'
-		all_results = ''
-		try:
-			self.cursor.execute(query)
-			self.con.commit()
-		except:
-			errMessage = str(sys.exc_info())
-			if self.isDebug:
-				print('errMessage: ', errMessage)
-
-		if retVal:
-			all_results = self.cursor.fetchall()
-			return all_results, errMessage
-		else:
-			return errMessage
-
-#fungsi crud DB, nanti, fokus login
-class account(dataManager):
-	def setDataAccount(self, password, name, rekening):
-		self.query = 'INSERT INTO users (password, name, rekening) VALUES (\'%s\', \'%s\', \'%s\')' 
-		self.query = self.query % (password, name, rekening)
-		if self.isDebug:
-			print('self.query : ', self.query )
-		errMsg = self.executeQuery(self.query)
-		return errMsg
-		
-	def getDataAccount(self, username, name, rekening):
-		self.query = 'SELECT id FROM users where username=\'%s\' and name=\'%s\' and rekening=\'%s\' ' 
-		self.query = self.query % (username, name, rekening)
-		if self.isDebug:
-			print('self.query : ', self.query )
-		id,errMsg = self.executeQuery(self.query, retVal=True)
-		return id,errMsg
-        
-	def updateAccount(self, id, name, rekening):
-		self.query = 'UPDATE users SET name=\'%s\', rekening=\'%s\' where id = %i;' 
-		self.query = self.query % ( name, rekening, id)
-		if self.isDebug:
-			print('self.query : ', self.query )
-		errMsg = self.executeQuery(self.query)
-		return errMsg
-
-	def deleteAccount(self, id):
-		self.query = 'DELETE FROM users where id = %i' 
-		self.query = self.query % (id)
-		if self.isDebug:
-			print('self.query : ', self.query )
-		errMsg = self.executeQuery(self.query)
-		return errMsg
-
-if __name__ == '__main__':
-	acc = account()
-	accList = acc.getDaftarMahasiswa()
-	baris = 1
-	for acc_row in accList:
-		print(baris,'. ', acc_row)
-		baris += 1
+import gui
+import connect
+import admin
+import users
 
 class App(wx.App):
-    appFrame=None
+	appFrame=None
 
-    def OnInit(self):
-        self.appFrame = loginController(frameLogin(None))
-        self.appFrame.Show()
-        return True
-
-#login Frame controller
-class loginController(frameLogin):
-
-    def eventButtonLogin(self,event):
-        inputtedUsername=self.txtUsername.GetValue()
-        inputtedPassword=self.txtPassword.GetValue()
-        con = sqlite3.connect("myDb.sqlite3")
-        cur = con.cursor()
-        cur.execute("SELECT username from users WHERE username='%s' AND password = '%s';" % (inputtedUsername, inputtedPassword))
-        if not cur.fetchone():
-            wx.MessageBox('Data login salah', 'Terjadi kesalahan')
-        else:
-            #wx.MessageBox('Anda berhasil login', 'sukses')
-        	self.appFrame=homeController(frameHomeAdmin(None))
-        	self.appFrame.Show()
-        	self.Destroy()
-
-class homeController(frameHomeAdmin):
-
-	def buttonUserList(self, event):
-		self.appFrame=dataUserController(frameDataUser(None))
+	def OnInit(self):
+		self.appFrame = start(None)
 		self.appFrame.Show()
+		return True
+
+class start(gui.frameBegin):
+	def __init__(self,parent):
+		gui.frameBegin.__init__(self,parent)
+
+	def eventAdminPage(self,event):
+		self.adminPage = subLoginAdmin(None)
+		self.Destroy()
+		self.adminPage.Show()
+
+	def eventUserPage(self,event):
+		self.userPage = subHomeUser(None)
+		self.Destroy()
+		self.userPage.Show()
+
+
+class subLoginAdmin(gui.frameLoginAdmin):
+	def __init__(self,parent):
+		gui.frameLoginAdmin.__init__(self,parent)
+
+	def eventBack(self,event):
+		self.back = start(None)
+		self.Destroy()
+		self.back.Show()
+
+	def eventLoginAdmin(self,event):
+		inputtedUsername = self.txtUsername.GetValue()
+		inputtedPassword = self.txtPassword.GetValue()
+		conn = sqlite3.connect("myDb.sqlite3")
+		cur = conn.cursor()
+		cur.execute("SELECT username FROM admin WHERE username='%s' AND password = '%s';" % (inputtedUsername, inputtedPassword))
+		if not cur.fetchone():
+			wx.MessageBox('Data login salah', 'Terjadi kesalahan')
+		else:
+			self.loginAdmin = subHomeAdmin(None)
+			self.Destroy()
+			self.loginAdmin.Show()
+
+
+class subHomeAdmin(gui.frameHomeAdmin):
+	def __init__(self,parent):
+		gui.frameHomeAdmin.__init__(self,parent)
+
+	def eventHome(self,event):
+		event.Skip()
+
+	def eventAdminAccountPage(self,event):
+		self.adminAccountPage = subAdminAccount(None)
+		self.Destroy()
+		self.adminAccountPage.Show()
+
+	def eventDataPage(self,event):
+		self.dataPage = subFrameData(None)
+		self.Destroy()
+		self.dataPage.Show()
+
+	def eventLogout(self,event):
+		event.Skip()
+
+
+class subAdminAccount(gui.frameAdminAccount):
+	def __init__(self,parent):
+		gui.frameAdminAccount.__init__(self,parent)
+
+
+	def eventHome(self,event):
+		self.home = subHomeAdmin(None)
+		self.Destroy()
+		self.home.Show()
+
+	def eventAdminAccountPage(self,event):
+		self.adminAccountPage = subAdminAccount(None)
+		self.Destroy()
+		self.adminAccountPage.Show()
+
+	def eventDataPage(self,event):
+		self.dataPage = subFrameData(None)
+		self.Destroy()
+		self.dataPage.Show()
+
+	def eventLogout(self,event):
+		event.Skip()
+
+	def eventAddAdminDialog(self,event):
+		self.dialog = subAddAdmin(None)
+		self.dialog.ShowModal()
+
+	def eventEditAdminDialog(self,event):
+		self.dialog = subEditAdmin(None)
+		self.dialog.ShowModal()
+
+	def eventDeleteAdminDialog(self,event):
+		deleteAdminAccount = admin.adminAccount()
+		inputtedUsername = self.txtUsername.GetValue()
+		inputtedPassword = self.txtPassword.GetValue()
+		dialog = wx.MessageBox("Anda yakin ingin menghapus " + str(self.adminAccountTable.GetValue(self.row,1)) + " ?", wx.YES_NO | wx.ICON_INFORMATION)
+		if dialog == 2:
+			deleteAdminAccount.delete(str(self.adminAccountTable.GetCellValue(self.row,0)))
+			wx.MessageBox("Data berhasil dihapus", "Delete", wx.OK | wx.ICON_INFORMATION)
+
+
+class subAddAdmin(gui.dialogAddAdmin):
+	def __init__(self,parent):
+		gui.dialogAddAdmin.__init__(self,parent)
+		
+	def eventAddAdmin(self,event):
+		insertAdminAccount = admin.adminAccount()
+		inputtedUsername = self.txtUsername.GetValue()
+		inputtedPassword = self.txtPassword.GetValue()
+		if inputtedUsername=="" or inputtedPassword=="":
+			wx.MessageBox("Terdapat kolom kosong", "ERROR", wx.OK | wx.ICON_ERROR)
+		else:
+			insertAdminAccount.insert(str(inputtedUsername),str(inputtedPassword))
+			wx.MessageBox("Akun admin telah ditambah", "Insert", wx.OK | wx.ICON_INFORMATION)
+			self.Destroy()
+
+	def eventCancelAdmin(self,event):
 		self.Destroy()
 
-class dataUserController(frameDataUser):
 
-	def buttonAddUser(self, event):
+class subEditAdmin(gui.dialogEditAdmin):
+	def __init__(self,parent):
+		gui.dialogEditAdmin.__init__(self,parent)
+
+	def eventEditAdmin(self,event):
+		editAdminAccount = admin.adminAccount()
+		inputtedUsername = self.txtUsername.GetValue()
+		inputtedPassword = self.txtPassword.GetValue()
+		editAdminAccount.update(str(inputtedUsername),str(inputtedPassword))
+		editAdminAccount.update(str(inputtedUsername),str(inputtedPassword))
+		wx.MessageBox("Akun admin telah diubah", "Update", wx.OK | wx.ICON_INFORMATION)
+		self.Destroy()
+
+	def eventCancelAdmin(self,event):
+		self.Destroy()
+
+
+class subFrameData(gui.frameData):
+	def __init__(self,parent):
+		gui.frameData.__init__(self,parent)
+
+	def eventHome(self,event):
+		self.home = subHomeAdmin(None)
+		self.Destroy()
+		self.home.Show()
+
+	def eventAdminAccountPage(self,event):
+		self.adminAccountPage = subAdminAccount(None)
+		self.Destroy()
+		self.adminAccountPage.Show()
+
+	def eventDataPage(self,event):
+		self.dataPage = subFrameData(None)
+		self.Destroy()
+		self.dataPage.Show()
+
+	def eventLogout(self,event):
+		event.Skip()
+
+
+class subHomeUser(gui.frameHomeUser):
+	def __init__(self,parent):
+		gui.frameHomeUser.__init__(self,parent)
+
+	def eventBack(self,event):
+		self.back = start(None)
+		self.Destroy()
+		self.back.Show()
+
+	def eventFillForm(self,event):
+		self.fillForm = subFormUser(None)
+		self.Destroy()
+		self.fillForm.Show()
+
+class subFormUser(gui.dialogFormUser):
+	def __init__(self,parent):
+		gui.dialogFormUser.__init__(self,parent)
+
+	def eventSaveForm( self, event ):
+		event.Skip()
+
+	def eventCancelForm( self, event ):
 		event.Skip()
