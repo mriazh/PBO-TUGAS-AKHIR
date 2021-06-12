@@ -25,6 +25,14 @@ class modelAdminData(connect.dataManagement):
         result = self.cur.fetchall()
         return result
 
+    def insert(self,username,password):
+        self.username = username
+        self.password = password
+        query = "INSERT INTO admin (username,password) VALUES ('{}','{}')".format(self.username,self.password)
+        self.cur = self.conn.cursor()
+        self.cur.execute(query)
+        self.conn.commit()
+
 class App(wx.App):
 	appFrame=None
 
@@ -151,7 +159,7 @@ class subAddAdmin(gui.dialogAddAdmin):
 		gui.dialogAddAdmin.__init__(self,parent)
 		
 	def eventAddAdmin(self,event):
-		insertAdminAccount = admin.adminAccount()
+		insertAdminAccount = modelAdminData()
 		inputtedUsername = self.txtUsername.GetValue()
 		inputtedPassword = self.txtPassword.GetValue()
 		if inputtedUsername=="" or inputtedPassword=="":
