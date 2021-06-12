@@ -210,9 +210,7 @@ class subEditAdmin(gui.dialogEditAdmin):
 		updateAdmin = modelAdminData()
 		self.txtUsername.GetValue()
 		self.txtPassword.GetValue()
-
-        
-		updateAdmin.update(str(self.txtUsername.GetValue()),str(self.txtPassword.GetValue()),str(self.m_textCtrl22.GetValue()),str(self.m_textCtrl23.GetValue()),str(self.m_textCtrl24.GetValue()),str(self.m_comboBox1.GetValue()),str(self.idperangkat),str(1),str(self.oldid))
+		updateAdmin.update(str(self.txtUsername.GetValue()),str(self.txtPassword.GetValue()),str(self.oldid))
 		wx.MessageBox("Data berhasil diubah", "Update", wx.OK | wx.ICON_INFORMATION)
 		self.Destroy()
 
