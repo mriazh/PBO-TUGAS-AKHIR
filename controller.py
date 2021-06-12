@@ -5,57 +5,6 @@ import connect
 import admin
 import users
 
-class modelUsersData(connect.dataManagement):
-    def show(self,orderby="users.rekening"):
-        self.orderby = orderby
-        result = []
-        query = "SELECT name,users.rekening,jenis,jumlah,harga,status FROM users"
-        self.cur = self.conn.cursor()
-        self.cur.execute(query)
-        result = self.cur.fetchall()
-        return result
-
-class modelAdminData(connect.dataManagement):
-    def show(self,orderby="admin.id"):
-        self.orderby = orderby
-        result = []
-        query = "SELECT admin.id,username,password FROM admin"
-        self.cur = self.conn.cursor()
-        self.cur.execute(query)
-        result = self.cur.fetchall()
-        return result
-
-    def insert(self,username,password):
-        self.username = username
-        self.password = password
-        query = "INSERT INTO admin (username,password) VALUES ('{}','{}')".format(self.username,self.password)
-        self.cur = self.conn.cursor()
-        self.cur.execute(query)
-        self.conn.commit()
-
-    def getByid(self, id=1):
-        self.id = id
-        result = []
-        query = "SELECT admin.id,username,password FROM admin WHERE admin.id = {}".format(self.id)
-        self.cur = self.conn.cursor()
-        self.cur.execute(query)
-        result = self.cur.fetchone()
-        return result
-
-    def update(self,id,username,password,oldid):
-        self.oldid = oldid
-        self.id = id
-        self.username = username
-        self.password = password
-
-        query = """UPDATE admin 
-                SET id = '{}', 
-                username = '{}', 
-                password = '{}',  
-                WHERE id = '{}'""".format(self.id, self.username, self.password,self.oldid)
-        self.cur = self.conn.cursor()
-        self.cur.execute(query)
-        self.conn.commit()
 
 class App(wx.App):
 	appFrame=None
@@ -64,6 +13,7 @@ class App(wx.App):
 		self.appFrame = start(None)
 		self.appFrame.Show()
 		return True
+
 
 class start(gui.frameBegin):
 	def __init__(self,parent):
@@ -131,7 +81,7 @@ class subAdminAccount(gui.frameAdminAccount):
 		self.InitData()		
 
 	def InitData(self,orderby="admin.id"):
-		listAdmin = modelAdminData()
+		listAdmin = admin.modelAdminData()
 		dataListAdmin = listAdmin.show(orderby)
 		self.adminAccountTable.DeleteRows(0, self.adminAccountTable.GetNumberRows())
 
@@ -173,12 +123,12 @@ class subAdminAccount(gui.frameAdminAccount):
 		self.dialog.ShowModal()
 
 	def eventDeleteAdminDialog(self,event):
-		deleteAdminAccount = admin.adminAccount()
+		deleteAdminData = admin.modelAdminData()
 		inputtedUsername = self.txtUsername.GetValue()
 		inputtedPassword = self.txtPassword.GetValue()
 		dialog = wx.MessageBox("Anda yakin ingin menghapus " + str(self.adminAccountTable.GetValue(self.row,1)) + " ?", wx.YES_NO | wx.ICON_INFORMATION)
 		if dialog == 2:
-			deleteAdminAccount.delete(str(self.adminAccountTable.GetCellValue(self.row,0)))
+			deleteAdminData.delete(str(self.adminAccountTable.GetCellValue(self.row,0)))
 			wx.MessageBox("Data berhasil dihapus", "Delete", wx.OK | wx.ICON_INFORMATION)
 
 
@@ -187,13 +137,13 @@ class subAddAdmin(gui.dialogAddAdmin):
 		gui.dialogAddAdmin.__init__(self,parent)
 		
 	def eventAddAdmin(self,event):
-		insertAdminAccount = modelAdminData()
+		insertAdminData = admin.modelAdminData()
 		inputtedUsername = self.txtUsername.GetValue()
 		inputtedPassword = self.txtPassword.GetValue()
 		if inputtedUsername=="" or inputtedPassword=="":
 			wx.MessageBox("Terdapat kolom kosong", "ERROR", wx.OK | wx.ICON_ERROR)
 		else:
-			insertAdminAccount.insert(str(inputtedUsername),str(inputtedPassword))
+			insertAdminData.insert(str(inputtedUsername),str(inputtedPassword))
 			wx.MessageBox("Akun admin telah ditambah", "Insert", wx.OK | wx.ICON_INFORMATION)
 			self.Destroy()
 
@@ -204,7 +154,7 @@ class subAddAdmin(gui.dialogAddAdmin):
 class subEditAdmin(gui.dialogEditAdmin):
 	def __init__(self,parent,id):
 		gui.dialogEditAdmin.__init__(self,parent)
-		listadmin=modelAdminData()
+		listadmin = admin.modelAdminData()
 		self.oldid = id
 		adminid = listadmin.getByid(self.oldid)
 		self.txtUsername.SetValue(str(adminid[0]))
@@ -225,21 +175,19 @@ class subEditAdmin(gui.dialogEditAdmin):
 class subFrameData(gui.frameData):
 	def __init__(self,parent,id):
 		gui.frameData.__init__(self,parent)
-		self.id=id
+		self.id = id
 		self.InitData()
 
 	def InitData(self,orderby="users.rekening"):
-		listUser = modelUsersData()
+		listUser = users.modelUsersData()
 		dataListUser = listUser.show(orderby)
 		self.dataUserAdmin.DeleteRows(0, self.dataUserAdmin.GetNumberRows())
-
 		self.dataUserAdmin.AppendRows(len(dataListUser))
 
 		for row in range(len(dataListUser)):
 			for col in range(self.dataUserAdmin.GetNumberCols()):
 				val = dataListUser[row][col]
 				self.dataUserAdmin.SetCellValue(row,col,str(val))
-
 
 	def eventHome(self,event):
 		self.home = subHomeAdmin(None)

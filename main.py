@@ -8,5 +8,5 @@ from controller import *
 #     app.MainLoop()
 
 if __name__=='__main__':
-    App=App(redirect=False)
-    App.MainLoop()
+	App=App(redirect=False)
+	App.MainLoop()

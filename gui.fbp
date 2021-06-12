@@ -2759,7 +2759,7 @@
             <property name="minimum_size"></property>
             <property name="name">frameData</property>
             <property name="pos"></property>
-            <property name="size">790,330</property>
+            <property name="size">800,330</property>
             <property name="style">wxCAPTION|wxCLOSE_BOX|wxMINIMIZE_BOX</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="title">HSART - Data</property>
