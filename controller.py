@@ -15,6 +15,16 @@ class modelUsersData(connect.dataManagement):
         result = self.cur.fetchall()
         return result
 
+class modelAdminData(connect.dataManagement):
+    def show(self,orderby="admin.id"):
+        self.orderby = orderby
+        result = []
+        query = "SELECT admin.id,username,password FROM admin"
+        self.cur = self.conn.cursor()
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
 class App(wx.App):
 	appFrame=None
 
@@ -85,7 +95,20 @@ class subHomeAdmin(gui.frameHomeAdmin):
 class subAdminAccount(gui.frameAdminAccount):
 	def __init__(self,parent):
 		gui.frameAdminAccount.__init__(self,parent)
+		self.id=id
+		self.InitData()		
 
+	def InitData(self,orderby="admin.id"):
+		listAdmin = modelAdminData()
+		dataListAdmin = listAdmin.show(orderby)
+		self.adminAccountTable.DeleteRows(0, self.adminAccountTable.GetNumberRows())
+
+		self.adminAccountTable.AppendRows(len(dataListAdmin))
+
+		for row in range(len(dataListAdmin)):
+			for col in range(self.adminAccountTable.GetNumberCols()):
+				val = dataListAdmin[row][col]
+				self.adminAccountTable.SetCellValue(row,col,str(val))	
 
 	def eventHome(self,event):
 		self.home = subHomeAdmin(None)
