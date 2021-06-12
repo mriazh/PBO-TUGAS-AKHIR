@@ -5,6 +5,16 @@ import connect
 import admin
 import users
 
+class modelUsersData(connect.dataManagement):
+    def show(self,orderby="users.rekening"):
+        self.orderby = orderby
+        result = []
+        query = "SELECT name,users.rekening,jenis,jumlah,harga,status FROM users"
+        self.cur = self.conn.cursor()
+        self.cur.execute(query)
+        result = self.cur.fetchall()
+        return result
+
 class App(wx.App):
 	appFrame=None
 
@@ -64,7 +74,7 @@ class subHomeAdmin(gui.frameHomeAdmin):
 		self.adminAccountPage.Show()
 
 	def eventDataPage(self,event):
-		self.dataPage = subFrameData(None)
+		self.dataPage = subFrameData(None,None)
 		self.Destroy()
 		self.dataPage.Show()
 
@@ -88,7 +98,7 @@ class subAdminAccount(gui.frameAdminAccount):
 		self.adminAccountPage.Show()
 
 	def eventDataPage(self,event):
-		self.dataPage = subFrameData(None)
+		self.dataPage = subFrameData(None,None)
 		self.Destroy()
 		self.dataPage.Show()
 
@@ -150,8 +160,23 @@ class subEditAdmin(gui.dialogEditAdmin):
 
 
 class subFrameData(gui.frameData):
-	def __init__(self,parent):
+	def __init__(self,parent,id):
 		gui.frameData.__init__(self,parent)
+		self.id=id
+		self.InitData()
+
+	def InitData(self,orderby="users.rekening"):
+		listUser = modelUsersData()
+		dataListUser = listUser.show(orderby)
+		self.dataUserAdmin.DeleteRows(0, self.dataUserAdmin.GetNumberRows())
+
+		self.dataUserAdmin.AppendRows(len(dataListUser))
+
+		for row in range(len(dataListUser)):
+			for col in range(self.dataUserAdmin.GetNumberCols()):
+				val = dataListUser[row][col]
+				self.dataUserAdmin.SetCellValue(row,col,str(val))
+
 
 	def eventHome(self,event):
 		self.home = subHomeAdmin(None)
