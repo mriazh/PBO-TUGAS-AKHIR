@@ -70,7 +70,11 @@ class subHomeAdmin(gui.frameHomeAdmin):
 		self.dataPage.Show()
 
 	def eventLogout(self,event):
-		event.Skip()
+		dlg = wx.MessageBox("Anda yakin ingin logout?", "Peringatan", wx.YES_NO | wx.ICON_INFORMATION)
+		if dlg == 2:
+			self.login = subLoginAdmin(None)
+			self.Destroy()
+			self.login.Show()
 
 
 class subAdminAccount(gui.frameAdminAccount):
@@ -107,7 +111,11 @@ class subAdminAccount(gui.frameAdminAccount):
 		self.dataPage.Show()
 
 	def eventLogout(self,event):
-		event.Skip()
+		dlg = wx.MessageBox("Anda yakin ingin logout?", "Peringatan", wx.YES_NO | wx.ICON_INFORMATION)
+		if dlg == 2:
+			self.login = subLoginAdmin(None)
+			self.Destroy()
+			self.login.Show()
 
 	def eventAddAdminDialog(self,event):
 		self.dialog = subAddAdmin(None)
@@ -204,7 +212,11 @@ class subFrameData(gui.frameData):
 		self.dataPage.Show()
 
 	def eventLogout(self,event):
-		event.Skip()
+		dlg = wx.MessageBox("Anda yakin ingin logout?", "Peringatan", wx.YES_NO | wx.ICON_INFORMATION)
+		if dlg == 2:
+			self.login = subLoginAdmin(None)
+			self.Destroy()
+			self.login.Show()
 
 
 class subHomeUser(gui.frameHomeUser):
@@ -217,7 +229,6 @@ class subHomeUser(gui.frameHomeUser):
 		listUser = users.modelUsersData()
 		dataListUser = listUser.show(orderby)
 		self.dataUserUser.DeleteRows(0, self.dataUserUser.GetNumberRows())
-
 		self.dataUserUser.AppendRows(len(dataListUser))
 
 		for row in range(len(dataListUser)):
