@@ -223,6 +223,20 @@ class subFrameData(gui.frameData):
 class subHomeUser(gui.frameHomeUser):
 	def __init__(self,parent):
 		gui.frameHomeUser.__init__(self,parent)
+		self.id=id
+		self.InitData()
+
+	def InitData(self,orderby="users.rekening"):
+		listUser = modelUsersData()
+		dataListUser = listUser.show(orderby)
+		self.dataUserUser.DeleteRows(0, self.dataUserUser.GetNumberRows())
+
+		self.dataUserUser.AppendRows(len(dataListUser))
+
+		for row in range(len(dataListUser)):
+			for col in range(self.dataUserUser.GetNumberCols()):
+				val = dataListUser[row][col]
+				self.dataUserUser.SetCellValue(row,col,str(val))
 
 	def eventBack(self,event):
 		self.back = start(None)
