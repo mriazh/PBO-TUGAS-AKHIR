@@ -1460,7 +1460,7 @@
                         <property name="aui_name"></property>
                         <property name="aui_position"></property>
                         <property name="aui_row"></property>
-                        <property name="autosize_cols">1</property>
+                        <property name="autosize_cols">0</property>
                         <property name="autosize_rows">0</property>
                         <property name="best_size"></property>
                         <property name="bg"></property>
@@ -1478,7 +1478,7 @@
                         <property name="col_label_values">&quot;ID&quot; &quot;Username&quot; &quot;Password&quot;</property>
                         <property name="col_label_vert_alignment">wxALIGN_CENTER</property>
                         <property name="cols">3</property>
-                        <property name="column_sizes"></property>
+                        <property name="column_sizes">50,120,120</property>
                         <property name="context_help"></property>
                         <property name="context_menu">1</property>
                         <property name="default_pane">0</property>
@@ -2759,7 +2759,7 @@
             <property name="minimum_size"></property>
             <property name="name">frameData</property>
             <property name="pos"></property>
-            <property name="size">650,330</property>
+            <property name="size">790,330</property>
             <property name="style">wxCAPTION|wxCLOSE_BOX|wxMINIMIZE_BOX</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="title">HSART - Data</property>
@@ -2862,7 +2862,7 @@
                     </object>
                 </object>
             </object>
-            <object class="wxBoxSizer" expanded="0">
+            <object class="wxBoxSizer" expanded="1">
                 <property name="minimum_size"></property>
                 <property name="name">bSizer12</property>
                 <property name="orient">wxVERTICAL</property>
@@ -2964,7 +2964,7 @@
                         <property name="aui_name"></property>
                         <property name="aui_position"></property>
                         <property name="aui_row"></property>
-                        <property name="autosize_cols">1</property>
+                        <property name="autosize_cols">0</property>
                         <property name="autosize_rows">0</property>
                         <property name="best_size"></property>
                         <property name="bg"></property>
@@ -2982,7 +2982,7 @@
                         <property name="col_label_values">&quot;Nama&quot; &quot;No Rekening&quot; &quot;Jenis&quot; &quot;Jumlah (Kg)&quot; &quot;Harga&quot; &quot;Status&quot; &quot;Jenis&quot;</property>
                         <property name="col_label_vert_alignment">wxALIGN_CENTER</property>
                         <property name="cols">6</property>
-                        <property name="column_sizes"></property>
+                        <property name="column_sizes">200,100,75,80,10,150</property>
                         <property name="context_help"></property>
                         <property name="context_menu">1</property>
                         <property name="default_pane">0</property>
@@ -3069,7 +3069,7 @@
             <property name="minimum_size"></property>
             <property name="name">frameHomeUser</property>
             <property name="pos"></property>
-            <property name="size">650,330</property>
+            <property name="size">790,330</property>
             <property name="style">wxCAPTION|wxCLOSE_BOX|wxMINIMIZE_BOX</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="title">HSART - Home</property>
@@ -3222,7 +3222,7 @@
                         <property name="aui_name"></property>
                         <property name="aui_position"></property>
                         <property name="aui_row"></property>
-                        <property name="autosize_cols">1</property>
+                        <property name="autosize_cols">0</property>
                         <property name="autosize_rows">0</property>
                         <property name="best_size"></property>
                         <property name="bg"></property>
@@ -3240,7 +3240,7 @@
                         <property name="col_label_values">&quot;Nama&quot; &quot;No Rekening&quot; &quot;Jenis&quot; &quot;Jumlah (Kg)&quot; &quot;Harga&quot; &quot;Status&quot; &quot;Jenis&quot;</property>
                         <property name="col_label_vert_alignment">wxALIGN_CENTER</property>
                         <property name="cols">6</property>
-                        <property name="column_sizes"></property>
+                        <property name="column_sizes">200,100,75,80,10,150</property>
                         <property name="context_help"></property>
                         <property name="context_menu">1</property>
                         <property name="default_pane">0</property>
