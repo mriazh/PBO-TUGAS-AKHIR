@@ -495,7 +495,7 @@ class dialogAddAdmin ( wx.Dialog ):
 class dialogEditAdmin ( wx.Dialog ):
 
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Edit Account", pos = wx.DefaultPosition, size = wx.Size( 400,200 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"HSART - Edit Account", pos = wx.DefaultPosition, size = wx.Size( 400,250 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
@@ -513,6 +513,16 @@ class dialogEditAdmin ( wx.Dialog ):
 		fgSizer1 = wx.FlexGridSizer( 0, 2, 0, 0 )
 		fgSizer1.SetFlexibleDirection( wx.BOTH )
 		fgSizer1.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+
+		self.m_staticText19 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"ID", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+		self.m_staticText19.Wrap( -1 )
+
+		self.m_staticText19.SetFont( wx.Font( 12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Century" ) )
+
+		fgSizer1.Add( self.m_staticText19, 0, wx.ALL, 5 )
+
+		self.txtID = wx.TextCtrl( self.m_panel1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 200,-1 ), 0 )
+		fgSizer1.Add( self.txtID, 0, wx.ALL, 5 )
 
 		self.m_staticText1 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"Username", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
 		self.m_staticText1.Wrap( -1 )

@@ -162,16 +162,21 @@ class subEditAdmin(gui.dialogEditAdmin):
 		listadmin = admin.modelAdminData()
 		self.oldid = id
 		adminid = listadmin.getByid(self.oldid)
+		self.txtID.SetValue(str(adminid[0]))
 		self.txtUsername.SetValue(str(adminid[1]))
 		self.txtPassword.SetValue(str(adminid[2]))
 
 	def eventEditAdmin(self,event):
 		updateAdmin = admin.modelAdminData()
-		self.txtUsername.GetValue()
-		self.txtPassword.GetValue()
-		updateAdmin.update(str(self.txtUsername.GetValue()),str(self.txtPassword.GetValue()),self.oldid)
-		wx.MessageBox("Data berhasil diubah", "Update", wx.OK | wx.ICON_INFORMATION)
-		self.Destroy()
+		inputtedID = self.txtID.GetValue()
+		inputtedUsername = self.txtUsername.GetValue()
+		inputtedPassword = self.txtPassword.GetValue()
+		if inputtedID=="" or inputtedUsername=="" or inputtedPassword=="":
+			wx.MessageBox("Terdapat kolom kosong", "ERROR", wx.OK | wx.ICON_ERROR)
+		else:
+			updateAdmin.update(str(inputtedID),str(inputtedUsername),str(inputtedPassword),str(self.oldid))
+			wx.MessageBox("Data berhasil diubah", "Update", wx.OK | wx.ICON_INFORMATION)
+			self.Destroy()
 
 	def eventCancelAdmin(self,event):
 		self.Destroy()
