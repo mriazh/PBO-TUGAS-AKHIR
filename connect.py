@@ -6,7 +6,7 @@ class dataManagement:
 	def __init__(self):
 		self.isDebug = False
 		self.conn = sqlite3.connect('myDb.sqlite3')
-		self.cursor = self.conn.cursor() # instantiate a cursor obj
+		self.cur = self.conn.cursor() # instantiate a cursor obj
 
 	def executeQuery(self, query, retVal=False):
 		errMessage = 'conn error'

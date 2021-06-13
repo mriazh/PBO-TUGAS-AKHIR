@@ -36,7 +36,7 @@ class modelUsersData(connect.dataManagement):
 		
 		query = """UPDATE users 
 				harga = '{}', 
-				status = '{}',  
+				status = '{}'  
 				WHERE id = '{}'""".format(self.upah,"Disetujui",self.id)
 		self.cur = self.conn.cursor()
 		self.cur.execute(query)
