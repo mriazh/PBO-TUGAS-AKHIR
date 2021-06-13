@@ -34,10 +34,7 @@ class modelUsersData(connect.dataManagement):
 		self.upah = upah
 		self.id = id
 		
-		query = """UPDATE users 
-				harga = '{}', 
-				status = '{}'  
-				WHERE id = '{}'""".format(self.upah,"Disetujui",self.id)
+		query = "UPDATE users SET harga = '{}', status = '{}'  WHERE id = '{}'".format(self.upah,"Disetujui",self.id)
 		self.cur = self.conn.cursor()
 		self.cur.execute(query)
 		self.conn.commit()
